@@ -1,0 +1,8 @@
+# Ignore Jupyter notebooks
+*.ipynb
+
+# Ignore MNIST dataset file
+mnist.pkl.gz
+
+# Ignore experiment script
+Exp.py
