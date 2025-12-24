@@ -6,3 +6,9 @@ mnist.pkl.gz
 
 # Ignore experiment script
 Exp.py
+
+__pycache__/
+
+*.pkl
+
+*.txt

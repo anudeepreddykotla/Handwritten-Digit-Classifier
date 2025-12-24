@@ -56,17 +56,20 @@ def preprocess_photo(path):
 
 
 if __name__ == "__main__":
-    x, vis = preprocess_photo("6.jpeg")
-    x = x.reshape(28, 28)
-    x = np.rot90(x, 2)
-    x = x.reshape(784, 1)
-    plt.imshow(vis, cmap="gray")
-    plt.title("Network input")
-    plt.axis("off")
-    plt.show()
+    for i in range(0,10):
+        path = f"{i}.jpeg"
+        x, vis = preprocess_photo(path)
+        x = x.reshape(28, 28)
+        x = np.rot90(x, 2)
+        x = x.reshape(784, 1)
+        plt.imshow(vis, cmap="gray")
+        plt.title("Network input")
+        plt.axis("off")
+        plt.show()
 
-    net = DigitClassifier()
-    with open("emnist_model.pkl", "rb") as f:
-        net.w1, net.b1, net.w2, net.b2, net.w3, net.b3 = pickle.load(f)
-    pred = net.classify(x)
-    print("Predicted:", pred)
+        net = DigitClassifier()
+        with open("emnist_model.pkl", "rb") as f:
+            net.w1, net.b1, net.w2, net.b2, net.w3, net.b3 = pickle.load(f)
+        pred = net.classify(x)
+        print("Predicted: ", pred)
+        print("Actual: ", i, "\n")

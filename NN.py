@@ -67,6 +67,7 @@ class DigitClassifier:
         return dw1, db1, dw2, db2, dw3, db3
 
     def SGD(self, mini_batch, lr):
+        lambda_reg = 0.01
         sum_dw1 = np.zeros_like(self.w1)
         sum_db1 = np.zeros_like(self.b1)
         sum_dw2 = np.zeros_like(self.w2)
@@ -88,11 +89,11 @@ class DigitClassifier:
             sum_db3 += db3
 
         m = len(mini_batch)
-        self.w1 -= lr * (sum_dw1 / m)
+        self.w1 = self.w1 * (1 - ((lr * lambda_reg) / m)) - lr * (sum_dw1 / m)
         self.b1 -= lr * (sum_db1 / m)
-        self.w2 -= lr * (sum_dw2 / m)
+        self.w2 = self.w2 * (1 - ((lr * lambda_reg) / m)) - lr * (sum_dw2 / m)
         self.b2 -= lr * (sum_db2 / m)
-        self.w3 -= lr * (sum_dw3 / m)
+        self.w3 = self.w3 * (1 - ((lr * lambda_reg) / m)) - lr * (sum_dw3 / m)
         self.b3 -= lr * (sum_db3 / m)
 
 def load_idx_images(path):
@@ -165,7 +166,7 @@ if __name__ == "__main__":
         network=net,
         epochs=10,
         batch_size=64,
-        lr=0.005
+        lr=0.5
     )
 
     import pickle
